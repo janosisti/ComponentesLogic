@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { Producto } from "./components/Producto";
+import { Carrito } from "./components/Carrito";
 
 function App() {
+
+  //listado de productos
+  const [productos, setProductos]= useState([
+    { id:1, nombre: 'Camisa A', precio: 50},
+    { id:2, nombre: 'Camisa B', precio: 40},
+    { id:3, nombre: 'Camisa C', precio: 10},
+    { id:4, nombre: 'Camisa D', precio: 80},
+  ]);
+
+  //state carrito de compras
+  const [carrito, setCarrito]= useState([]);
+
+
+
+
+  //obetener fecha
+  const fecha = new Date().getFullYear();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header titulo="Tienda virtual" />
+      <h1>Listado de Prductos</h1>
+      {productos.map(producto => (
+        <Producto
+        key= {producto.id}
+        producto= {producto}
+        carrito= {carrito}
+        setCarrito= {setCarrito}
+        productos={productos}
+        />
+      ))}
+      <Carrito
+      carrito= {carrito}
+      setCarrito={setCarrito}
+      />
+      <Footer 
+      fecha = {fecha}/>
+    </>
   );
 }
 
